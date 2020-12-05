@@ -10,16 +10,14 @@ public class dangky {
         int Register = 1;
 
         System.out.println("Chon 1 de dang ky" + "\nChon 2 de dang nhap");
-        System.out.print("Ban chon: ");
+        System.out.println("Ban chon: ");
         Scanner scr = new Scanner(System.in);
-        Test.File1.dangnhap dp = new Test.File1.dangnhap();
+        dangnhap dp = new dangnhap();
         Gson gson = new Gson();
 
-
         if (Register == scr.nextInt()) {
-
             Scanner sc = new Scanner(System.in);
-            String Repassword = sc.nextLine();
+
             System.out.println("Dang ky");
             FileOutputStream file = null;
 
@@ -28,10 +26,14 @@ public class dangky {
 
             System.out.print("Password: ");
             dp.password = sc.nextLine();
-            while(dp.password == Repassword){
+
+            System.out.print("Repassword: ");
+            String Repassword = sc.nextLine();
+            do{
                 System.out.print("Repassword: ");
                 Repassword = sc.nextLine();
             }
+            while(dp.password == Repassword);
 
             System.out.print("Email: ");
             dp.email = sc.nextLine();
@@ -79,11 +81,7 @@ public class dangky {
 
     static class dangnhap {
         String username;
-
-
-
         String password;
-
         String email;
 
         public dangnhap() {
