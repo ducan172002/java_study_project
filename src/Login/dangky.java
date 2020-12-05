@@ -1,48 +1,54 @@
 package Login;
 
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.Scanner;
 
 public class dangky {
     public static void main(String[] args) throws IOException {
         int Register = 1;
+
         System.out.println("Chon 1 de dang ky" + "\nChon 2 de dang nhap");
-        System.out.println("Ban chon: ");
+        System.out.print("Ban chon: ");
         Scanner scr = new Scanner(System.in);
+        Test.File1.dangnhap dp = new Test.File1.dangnhap();
+        Gson gson = new Gson();
+
+
         if (Register == scr.nextInt()) {
+
             Scanner sc = new Scanner(System.in);
+            String Repassword = sc.nextLine();
             System.out.println("Dang ky");
             FileOutputStream file = null;
 
+            System.out.print("Username: ");
+            dp.username = sc.nextLine();
 
-            System.out.println("Username: ");
-            String username = sc.nextLine();
-            byte[] a = username.getBytes();
+            System.out.print("Password: ");
+            dp.password = sc.nextLine();
+            while(dp.password == Repassword){
+                System.out.print("Repassword: ");
+                Repassword = sc.nextLine();
+            }
 
-            System.out.println("Password: ");
-            String password = sc.nextLine();
-            byte[] b = password.getBytes();
+            System.out.print("Email: ");
+            dp.email = sc.nextLine();
 
-            System.out.println("Email: ");
-            String email = sc.nextLine();
-            byte[] c = email.getBytes();
-
+            String register = gson.toJson(dp);
             System.out.println("Dang ki thanh cong");
 
             try {
-                file = new FileOutputStream("C:\\Users\\HP\\Documents\\Login\\" + username + ".txt");
+                file = new FileOutputStream("C:\\Users\\HP\\Documents\\Login\\" + dp.username + ".txt");
                 DataOutputStream dos = new DataOutputStream(file);
-                dos.writeBytes("Username: ");
-                file.write(a);
-                dos.writeBytes("\nPassword: ");
-                file.write(b);
-                dos.writeBytes("\nEmail: ");
-                file.write(c);
+                dos.writeBytes(register);
             } catch (Exception e) {
                 System.out.println(e);
             } finally {
                 file.close();
             }
+
         } else {
             System.out.println("Dang nhap");
             Scanner sc = new Scanner(System.in);
@@ -68,5 +74,42 @@ public class dangky {
 
             }
         }
+
     }
+
+    static class dangnhap {
+        String username;
+
+
+
+        String password;
+
+        String email;
+
+        public dangnhap() {
+        }
+
+        public dangnhap(String username, String password, String email) {
+            this.username = username;
+            this.password = password;
+            this.email = email;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
 }
