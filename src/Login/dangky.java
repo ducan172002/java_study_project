@@ -42,7 +42,7 @@ public class dangky {
             System.out.println("Dang ki thanh cong");
 
             try {
-                file = new FileOutputStream("C:\\Users\\HP\\Documents\\Login\\" + dp.username + ".txt");
+                file = new FileOutputStream("C:\\Users\\HP\\IdeaProjects\\TestJSON\\src\\" + dp.username + ".json");
                 DataOutputStream dos = new DataOutputStream(file);
                 dos.writeBytes(register);
             } catch (Exception e) {
@@ -62,7 +62,7 @@ public class dangky {
             String password = sc.nextLine();
             try {
 
-                FileInputStream file = new FileInputStream("C:\\Users\\HP\\Documents\\Login\\" + username + ".txt");
+                FileInputStream file = new FileInputStream("C:\\Users\\HP\\IdeaProjects\\java_study_project\\src\\" + username + ".json");
                 Scanner scanner = new Scanner(file);
 
                 while (scanner.hasNextLine()) {
