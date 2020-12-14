@@ -1,82 +1,107 @@
-package Login;
+package Test;
 
 import com.google.gson.Gson;
-
 import java.io.*;
+import java.text.ParseException;
 import java.util.Scanner;
 
-public class dangky {
-    public static void main(String[] args) throws IOException {
-        int Register = 1;
+public class File1 {
+    public static void main(String[] args) throws IOException , ParseException {
+
 
         System.out.println("Chon 1 de dang ky" + "\nChon 2 de dang nhap");
-        System.out.println("Ban chon: ");
+
         Scanner scr = new Scanner(System.in);
-        dangnhap dp = new dangnhap();
+        Test.File1.dangnhap dp = new Test.File1.dangnhap();
         Gson gson = new Gson();
 
-        if (Register == scr.nextInt()) {
-            Scanner sc = new Scanner(System.in);
+        while(10 < 20) {
+            System.out.print("Ban chon: ");
+            int banchon = scr.nextInt();
 
-            System.out.println("Dang ky");
-            FileOutputStream file = null;
+            if (banchon == 1) {
+                Scanner sc = new Scanner(System.in);
 
-            System.out.print("Username: ");
-            dp.username = sc.nextLine();
+                System.out.println("Dang ky");
+                FileOutputStream file = null;
 
-            System.out.print("Password: ");
-            dp.password = sc.nextLine();
+                System.out.print("Username: ");
+                dp.username = sc.nextLine();
 
-            System.out.print("Repassword: ");
-            String Repassword = sc.nextLine();
-            do{
+                System.out.print("Password: ");
+                dp.password = sc.nextLine();
+
                 System.out.print("Repassword: ");
-                Repassword = sc.nextLine();
-            }
-            while(dp.password == Repassword);
+                String Repassword = sc.nextLine();
+                while (10 < 20) {
 
-            System.out.print("Email: ");
-            dp.email = sc.nextLine();
+                    if(Repassword.equals(dp.password)){
+                        break;
+                    }
+                    if(Repassword != dp.password) {
+                        System.out.print("Repassword: ");
+                        Repassword = sc.nextLine();
+                    }
 
-            String register = gson.toJson(dp);
-            System.out.println("Dang ki thanh cong");
+                }
+                System.out.print("Email: ");
+                dp.email = sc.nextLine();
 
-            try {
-                file = new FileOutputStream("C:\\Users\\HP\\IdeaProjects\\TestJSON\\src\\" + dp.username + ".json");
-                DataOutputStream dos = new DataOutputStream(file);
-                dos.writeBytes(register);
-            } catch (Exception e) {
-                System.out.println(e);
-            } finally {
-                file.close();
-            }
+                String register = gson.toJson(dp);
 
-        } else {
-            System.out.println("Dang nhap");
-            Scanner sc = new Scanner(System.in);
+                try {
+                    file = new FileOutputStream("C:\\Users\\HP\\IdeaProjects\\TestJSON\\src\\" + dp.username + ".json");
+                    DataOutputStream dos = new DataOutputStream(file);
+                    dos.writeBytes(register);
+                } catch (Exception e) {
+                    System.out.println(e);
+                } finally {
+                    file.close();
+                }
 
-            System.out.print("Username: ");
-            String username = sc.nextLine();
+                System.out.println("Dang ki thanh cong");
 
-            System.out.print("Password: ");
-            String password = sc.nextLine();
-            try {
+            } else if (banchon == 2){
+                System.out.println("Dang nhap");
+                Scanner sc = new Scanner(System.in);
 
-                FileInputStream file = new FileInputStream("C:\\Users\\HP\\IdeaProjects\\java_study_project\\src\\" + username + ".json");
-                Scanner scanner = new Scanner(file);
 
-                while (scanner.hasNextLine()) {
-                    System.out.println(scanner.nextLine());
+                System.out.print("Username: ");
+                dp.username = sc.nextLine();
+
+                System.out.print("Password: ");
+                dp.password = sc.nextLine();
+
+
+                try {
+
+                    BufferedReader br = new BufferedReader(
+                            new FileReader("C:\\Users\\HP\\IdeaProjects\\TestJSON\\src\\" + dp.username + ".json"));
+
+                    Test.File1.dangnhap countryObj = gson.fromJson(br, Test.File1.dangnhap.class);
+                    String user = countryObj.getUsername();
+                    String pass = countryObj.getPassword();
+                    if(dp.username.equals(user) && dp.password.equals(pass))
+                    {
+                        System.out.println("Dang nhap thanh cong");
+                    }
+                    else if(dp.username.equals(user) && dp.password != pass)
+                    {
+                        System.out.println("Sai mat khau");
+                    }
+
+                }
+                catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
 
                 }
 
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-                System.out.println(ex);
-
+            } else if (banchon == 0)
+            {
+                System.out.println("Ket thuc chuong trinh");
+                break;
             }
         }
-
     }
 
     static class dangnhap {
@@ -107,14 +132,6 @@ public class dangky {
 
         public void setPassword(String password) {
             this.password = password;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
         }
     }
 
